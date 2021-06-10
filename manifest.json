@@ -1,0 +1,40 @@
+{
+    "name": "Bilibili ABR tracker",
+    "description": "Tracks ABR for bilibili video",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_icon": {
+            "128": "icon.png"
+        }
+    },
+    "icons": {
+        "128": "icon.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "alarms",
+        "contextMenus",
+        "storage",
+        "notifications",
+        "webRequest",
+        "webNavigation",
+        "scripting"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.bilibili.com/video/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,3 @@
+1. network speed (fix, To be determined)
+2. buffer size (checkout BaseSegment in the bilibili log file, which can be downloaded by rightclicking on video)
+3. current video quality (resolution, again, in the stats available thru context menu)
