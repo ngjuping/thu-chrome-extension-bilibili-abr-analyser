@@ -22,11 +22,19 @@ function main() {
       console.log(video_player);
       video_player = document.getElementsByTagName("video")[0];
 
+      let buffer_healths = [];
+
+      // Flatten the buffers
+      for (let i = 0; i < video_player.buffered.length; i++) {
+        buffer_healths.push(
+          video_player.buffered.end(i) - video_player.buffered.start(i)
+        );
+      }
+
       sendResponse({
-        buffer_health:
-          video_player.buffered.end(0) - video_player.buffered.start(0),
-        view_width: video_player.videoWidth,
-        view_height: video_player.videoHeight,
+        buffer_healths: buffer_healths,
+        view_width: video_player.clientWidth,
+        view_height: video_player.clientHeight,
       });
     }
   });

@@ -77,7 +77,7 @@ chrome.webRequest.onBeforeRequest.addListener(
     let quality = parseInt(
       url.slice(videoQualityIndex, videoQualityIndex + qualityStrLen)
     );
-    let buffer_health = 0;
+    let buffer_healths = [0];
     let view_width = 0;
     let view_height = 0;
 
@@ -100,13 +100,21 @@ chrome.webRequest.onBeforeRequest.addListener(
             }
           } else {
             console.log(response);
-            buffer_health = response.buffer_health;
+            buffer_healths = response.buffer_healths;
             view_width = response.view_width;
             view_height = response.view_height;
           }
 
           // Append log data
-          let log_data = `${Date.now()},${quality},${buffer_health},${view_width},${view_height}`;
+          let log_data = `${Date.now()},${quality},`;
+
+          // Add buffers
+          for (let buffer_health of buffer_healths) {
+            log_data += `${buffer_health},`;
+          }
+
+          log_data += `${view_width},${view_height}`;
+
           abr_logs[tab.id]["data"].push(log_data);
           abr_logs[tab.id]["requestId"].push(requestId);
         }
